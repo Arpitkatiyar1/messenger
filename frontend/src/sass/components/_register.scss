@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: center;
     .card{
+        width: 300px;
         background-color: #b5b5bd;
         .card-header{
             h3{
@@ -16,11 +17,14 @@
         }
         .card-body{
             .form-group{
+                label{
+                    color: #504e4e;
+                }
                 .btn{
                     background-color: #808080;
                 }
                 .form-control{
-                    color: #fff;
+                    color: #0b0b0b;
                 }
                 &:last-child{
                     margin-bottom: 0px;
@@ -55,7 +59,8 @@
                             display: none;
                         }
                         label{
-                            background-color: #0a0e1585;
+                            background-color: #0c0d0f85;
+                            color: white;
                             padding: 8px;
                             margin-bottom: 0px;
                             width: 120px;
