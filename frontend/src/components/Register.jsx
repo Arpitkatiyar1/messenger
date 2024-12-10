@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaCircleUser } from 'react-icons/fa6';
+import {useDispatch} from "react-redux"
+import { userRegister } from '../store/actions/authAction';
 
 function Register() {
+  const dispatch = useDispatch();
   const [state, setstate] = useState({
     userName: "",
     email: "",
@@ -30,9 +33,16 @@ function Register() {
     };
     reader.readAsDataURL(e.target.files[0]);
   }
-  const register = e =>{
+  const register = e => {
+    const {userName,email,password,confirmPassword, image} = state;
     e.preventDefault();
-    console.log(state);
+    const formData = new FormData();
+          formData.append('userName',userName);
+          formData.append('email',email);
+          formData.append('password',password);
+          formData.append('confirmPassword',confirmPassword);
+          formData.append('image',image);
+          dispatch(userRegister(formData));
   }
 
   return (
@@ -43,6 +53,7 @@ function Register() {
             <div className="form-group">
               <label htmlFor="username">User Name</label>
               <input
+                required={true}
                 type="text"
                 onChange={inputHandle}
                 name='userName'
@@ -55,6 +66,7 @@ function Register() {
             <div className="form-group">
               <label htmlFor="email" >Email</label>
               <input
+                required={true}
                 type="email"
                 onChange={inputHandle}
                 name='email'
@@ -67,6 +79,7 @@ function Register() {
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <input
+                required={true}
                 type="password"
                 onChange={inputHandle}
                 name='password'
@@ -79,6 +92,7 @@ function Register() {
             <div className="form-group">
               <label htmlFor="confirmPassword">Confirm Password</label>
               <input
+                required={true}
                 type="password"
                 onChange={inputHandle}
                 name='confirmPassword'
