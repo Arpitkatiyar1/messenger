@@ -8,7 +8,8 @@ dotenv.config({
      path : 'backend/config/config.env'
 })
 
-app.use('/api/messenger', authRouter)
+app.use('/api/messenger', authRouter);
+
 databaseConnect();
 app.listen(PORT, () => {
     console.log(`server is running at: http://localhost:${PORT}`)

@@ -34,15 +34,15 @@ function Register() {
     reader.readAsDataURL(e.target.files[0]);
   }
   const register = e => {
-    const {userName,email,password,confirmPassword, image} = state;
+
     e.preventDefault();
     const formData = new FormData();
-          formData.append('userName',userName);
-          formData.append('email',email);
-          formData.append('password',password);
-          formData.append('confirmPassword',confirmPassword);
-          formData.append('image',image);
-          dispatch(userRegister(formData));
+          formData.append('userName',state.userName);
+          formData.append('email',state.email);
+          formData.append('password',state.password);
+          formData.append('confirmPassword',state.confirmPassword);
+          formData.append('image', state.image);
+    dispatch(userRegister(formData));    
   }
 
   return (
@@ -53,10 +53,9 @@ function Register() {
             <div className="form-group">
               <label htmlFor="username">User Name</label>
               <input
-                required={true}
                 type="text"
                 onChange={inputHandle}
-                name='userName'
+                name="userName"
                 value={state.userName}
                 className="form-control"
                 placeholder="User Name"
@@ -64,12 +63,11 @@ function Register() {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="email" >Email</label>
+              <label htmlFor="email">Email</label>
               <input
-                required={true}
                 type="email"
                 onChange={inputHandle}
-                name='email'
+                name="email"
                 value={state.email}
                 className="form-control"
                 placeholder="Email"
@@ -79,10 +77,9 @@ function Register() {
             <div className="form-group">
               <label htmlFor="password">Password</label>
               <input
-                required={true}
                 type="password"
                 onChange={inputHandle}
-                name='password'
+                name="password"
                 value={state.password}
                 className="form-control"
                 placeholder="Password"
@@ -92,10 +89,9 @@ function Register() {
             <div className="form-group">
               <label htmlFor="confirmPassword">Confirm Password</label>
               <input
-                required={true}
                 type="password"
                 onChange={inputHandle}
-                name='confirmPassword'
+                name="confirmPassword"
                 value={state.confirmPassword}
                 className="form-control"
                 placeholder="Confirm Password"
@@ -105,7 +101,11 @@ function Register() {
             <div className="form-group">
               <div className="file-image">
                 <div className="image">
-                  {loadImage ? <img src={loadImage} /> : <FaCircleUser style={{ width: '100%', height: '100%' }} /> }      
+                  {loadImage ? (
+                    <img src={loadImage} />
+                  ) : (
+                    <FaCircleUser style={{ width: "100%", height: "100%" }} />
+                  )}
                 </div>
                 <div className="file">
                   <label htmlFor="image">Select Image</label>
@@ -113,9 +113,9 @@ function Register() {
                     type="file"
                     className="form-control"
                     id="image"
-                    accept='image/*'
+                    accept="image/*"
                     onChange={fileHandle}
-                    name='image'
+                    name="image"
                   />
                 </div>
               </div>

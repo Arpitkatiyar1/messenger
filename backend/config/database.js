@@ -5,7 +5,7 @@ const databaseConnect = () => {
      }).then(()=>{
           console.log('Mongodb Connected')
      }).catch(error=>{
-          console.log(error)
+          console.log(error) 
      })
 }
 module.exports = databaseConnect;
