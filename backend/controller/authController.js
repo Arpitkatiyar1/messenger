@@ -1,6 +1,5 @@
 const validator = require('validator');
 const {formidable} = require('formidable');
-const registerModel = require('../models/authModel');
 const fs = require('fs');
 const { isValidUser } = require('./userRegisterSubtask/isValidUser');
 const { newImagePath } = require('./userRegisterSubtask/setNewImagePath');
@@ -15,9 +14,7 @@ module.exports.userRegister = (req, res) => {
           email = fields.email[0],
           password = fields.password[0],
           confirmPassword = fields.confirmPassword[0],
-          image = files.image[0],
           error = isValidUser(fields, files);
-
     
     if (error.length > 0) {
       res.status(400).json({
@@ -25,29 +22,18 @@ module.exports.userRegister = (req, res) => {
       });
     } else {
         
-        const newPath=newImagePath(image);
+      image = files.image[0];
+        const newPath = newImagePath(image);
+        const user = {
+            userName,
+            email,
+            password,
+            image,
+            newPath,
+        }
         
       try {
-        const checkUser = await registerModel.findOne({
-          email: email,
-        });
-        if (checkUser) {
-          res.status(404).json({
-            error: {
-              errorMessage: ["Your email already exist"],
-            },
-          });
-        } else {
-            
-            const user = {
-                userName,
-                email,
-                password,
-                image,
-                newPath,
-            }
-            await registerUser(user,req,res);          
-        }
+        await registerUser(user, req, res);
       } catch (error) {
         res.status(500).json({
           error: {
